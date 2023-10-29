@@ -16,7 +16,7 @@ def dictionarize(data) -> dict:
             res[i] = 1
     return res
 
-def frommermaid(s,mode="byName"):
+def frommermaid(s,mode="byID"):
     import re
     re_places = re.compile("[^|\W][^\W]*\(\(.*\)\)")
     re_transistions = re.compile("[^|\W][^\W]*\[.*\]")
@@ -45,9 +45,9 @@ def frommermaid(s,mode="byName"):
             n = 1
         f ,t = i.split('>')
         f = f.replace('-','')
-        arches.append([f,t,n])
+        arches.append([f,t,int(n)])
     if mode == 'byID':
-        return list(places_dict.keys()),list(transitions_dict.keys()),arches
+        return places_dict,list(transitions_dict.keys()),arches
     elif mode == 'byName':
         arches_n = []
         for i in arches:

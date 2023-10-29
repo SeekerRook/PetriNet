@@ -20,23 +20,30 @@ st = """
 title: "diagram"
 ---
 flowchart
-	name(("P1")) ---> 1["T2"]
-	1 -->|"2"| 804668(("P2"))
-	1 --> 771969(("P3"))
+	758413(("2")) --> 846518["18"]
+	846518 --> 445072(("0"))
+	445072 --> 433923["19"]
+	433923 --> 413503(("0"))
+	413503 --> 419111["20"]
+	419111 --> 842017(("0"))
+	842017 --> 696366["17"]
+	696366 --> 758413
 
 """
 print(tools.frommermaid(st))
 
 
-p = pn.PetriNet().from_mermaid(st)
+p = pn.PetriNet.from_mermaid(st)
 # p.from_mermaid(st)
 
 print(p)
 
-a = p.get("P1")
-print(a)
-a.settokens(6)
+# print(p.Arches['A1'].PN)
+# p.Places['P1'].addTokens(6)
+
+p.render()
 input(p)
 while(True):
-    p.fire()
-    input(p)
+	p.fire()
+	p.render()
+	input(p)
