@@ -2,6 +2,9 @@ import simplePN as PN
 infty = 100000000000
 ω = -42
 def next(M,p):
+    """
+    returns a list of all possible Markings after Marking M for Petri Net P
+    """
     Mold = [i for i in M]
     ps = []
     for idx,i in enumerate(M):
@@ -18,6 +21,9 @@ def next(M,p):
     return ps
 
 def greaterthan(M1,M2):
+    """
+    checks if marking M1 is greater than marking M2
+    """
     for i,j in zip(M1,M2):
         if i < j :
             if i == ω or j == ω:
@@ -26,6 +32,9 @@ def greaterthan(M1,M2):
     return True
 
 def format(M1,M2):
+    """
+    given Markings M1 and M2 (M1>M2) returns M1 by replacing the greater element with ω
+    """
     res = []
     for i , j in zip(M1,M2):
         if i > j or j == ω:
@@ -37,6 +46,9 @@ def format(M1,M2):
 
 
 def coverability_tree(M,pn,path = []):
+    """
+    prints the coverability tree of Petri Net pn with initial state M
+    """
     M = list(M)
     print("     "*len(path),M)
 

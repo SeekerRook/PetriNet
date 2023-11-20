@@ -1,11 +1,14 @@
 import numpy as np
 import random as rnd
 def isfirable(M,T):
-        for idx,i in enumerate(-1*T):
-            if i == 1 :
-                if M[idx] < 1:
-                    return False
-        return True
+    """
+    checks if Transition (in the form of a Matrix with -1 in input and +1 in output Places) is firable for marking M
+    """
+    for idx,i in enumerate(-1*T):
+        if i == 1 :
+            if M[idx] < 1:
+                return False
+    return True
                     
 class PetriNet:
     def __init__(self,W):
@@ -14,10 +17,16 @@ class PetriNet:
         self.places_n = len(W) 
 
     def transition(self,t):
+        """
+        given transition index t gives the Transition Matrix in the form of a Matrix with -1 in input and +1 in output Places)
+        """
         return self.W[:,t]
 
 
     def enabled(self,M):
+        """
+        given marking N returns a list of firable Transitions (index)
+        """
         res = np.zeros(self.transitions_n,dtype=int)
 
         for j in range(self.transitions_n):
@@ -28,16 +37,28 @@ class PetriNet:
                 res[j] = 1
         return res
     def fire_all(self,M,T):
+        """
+        Given an array with the number of occurences of eac transition, returns the resulting marking of the PN
+        Does not preserve the path taken, nor checks if transitions can be fired.
+        Can be used for testing the result of other methods. 
+        """
         return (M+np.dot(self.W,T))
 
     def rnd_transition(self,M):
+        """
+        return random enabled transition. 
+        Useful for incremental simulation
+        """
         ts = []
         for i,t in enumerate(self.enabled(M)):
             if int(t) == 1:
                 ts.append(i)
-        # print(ts)
         return rnd.choice(ts)
+
     def simulate (self,i,M=[]):
+        """
+        Returns the Marking and the Transition occurences after i firings of the PN (random)
+        """
         ts = np.zeros(self.transitions_n,dtype=int)
         if M ==[]:
             M = np.zeros(self.places_n,dtype=int)
@@ -48,11 +69,11 @@ class PetriNet:
         return M,ts
         
     def fire_one(self,M,t):
+        """
+        returns the Marking after the firing of transition t(index)
+        """
         T = np.zeros(self.transitions_n,dtype=int)
         T [t] = 1
-        # print(T)
-        # print(M)
         if isfirable(M,self.W[:,t]):
-            # print("firable")
             return self.fire_all(M,T)
         else: return M
