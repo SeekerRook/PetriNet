@@ -2,10 +2,11 @@ import numpy as np
 import random as rnd
                    
 class PetriNet:
-    def __init__(self,W):
-        self.W = np.array(W,dtype=int)
+    def __init__(self,W,type=object):
+        self.W = np.array(W,dtype=type)
         self.transitions_n = len(W[0]) 
         self.places_n = len(W) 
+        self.dtype = type
 
     def transition(self,t):
         """
@@ -13,37 +14,40 @@ class PetriNet:
         """
         return self.W[:,t]
 
-    def isfirable(self,M,T):
+    def isfirable(M,T):
         """
         checks if Transition (in the form of a Matrix with -1 in input and +1 in output Places) is firable for marking M
         """
-        for idx,i in enumerate(-1*T):
-            if i == 1 :
-                if M[idx] < 1:
-                    return False
-        return True
+        pass
+        #for idx,i in enumerate(-1*T):
+        #    if i == 1 :
+        #        if M[idx] < 1:
+        #            return False
+        #return True
  
 
     def enabled(self,M):
         """
         given marking N returns a list of firable Transitions (index)
         """
-        res = np.zeros(self.transitions_n,dtype=int)
+        pass
+        #res = np.zeros(self.transitions_n,dtype=self.type)
 
-        for j in range(self.transitions_n):
-                # print(self.W[i,j])
-                # print(self.W)
+        #for j in range(self.transitions_n):
+        #        # print(self.W[i,j])
+        #        # print(self.W)
 
-            if self.isfirable(M,self.transition(j)):
-                res[j] = 1
-        return res
+        #    if self.isfirable(M,self.transition(j)):
+        #        res[j] = 1
+        #return res
     def fire_all(self,M,T):
         """
         Given an array with the number of occurences of eac transition, returns the resulting marking of the PN
         Does not preserve the path taken, nor checks if transitions can be fired.
         Can be used for testing the result of other methods. 
         """
-        return (M+np.dot(self.W,T))
+        pass
+        #return (M+np.dot(self.W,T))
 
     def rnd_transition(self,M):
         """
@@ -60,21 +64,22 @@ class PetriNet:
         """
         Returns the Marking and the Transition occurences after i firings of the PN (random)
         """
-        ts = np.zeros(self.transitions_n,dtype=int)
-        if M ==[]:
-            M = np.zeros(self.places_n,dtype=int)
-        for i in range(i):
-            t = self.rnd_transition(M)
-            ts[t]+=1
-            M = self.fire_one(M,t)   
-        return M,ts
-        
+        #ts = np.zeros(self.transitions_n,dtype=self.type)
+        #if M ==[]:
+        #    M = np.zeros(self.places_n,dtype=self.type)
+        #for i in range(i):
+        #    t = self.rnd_transition(M)
+        #    ts[t]+=1
+        #    M = self.fire_one(M,t)   
+        #return M,ts
+        pass
     def fire_one(self,M,t):
         """
         returns the Marking after the firing of transition t(index)
         """
-        T = np.zeros(self.transitions_n,dtype=int)
-        T [t] = 1
-        if self.isfirable(M,self.W[:,t]):
-            return self.fire_all(M,T)
-        else: return M
+        #T = np.zeros(self.transitions_n,dtype=self.type)
+        #T [t] = 1
+        #if self.isfirable(M,self.W[:,t]):
+        #    return self.fire_all(M,T)
+        #else: return M
+        pass
